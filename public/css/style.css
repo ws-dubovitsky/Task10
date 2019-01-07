@@ -13,3 +13,15 @@ body {
 #pac-input:focus {
   border-color: #4d90fe;
 }
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}

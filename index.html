@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="/public/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="/public/css/style.css" />
     <link
       rel="stylesheet"
+      type="text/css"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
@@ -35,69 +36,13 @@
           ></table>
         </div>
       </div>
+      <div id="map"></div>
     </div>
-
-    <script>
-      let weather = document.getElementById("weather-div");
-      const appKey = "a1940f6091cee8f1939beaa1ed9a82dc";
-      let input = document.getElementById("pac-input");
-
-      window.onload = function() {
-        input.addEventListener("keydown", function(e) {
-          if (e.keyCode === 13) {
-            findWeatherDetails();
-          }
-        });
-      };
-
-      function findWeatherDetails() {
-        if (input.value === "") {
-        } else {
-          let searchLink =
-            "https://api.openweathermap.org/data/2.5/forecast?q=" +
-            input.value +
-            "&appid=" +
-            appKey;
-          requestAsync(searchLink, theResponse);
-        }
-      }
-
-      function theResponse(response) {
-        let jsonObject = JSON.parse(response);
-        let arr = jsonObject.list;
-        weather.innerHTML +=
-          "<thead><tr><td scope='row'>" +
-          "Date" +
-          "</td>" +
-          "<td scope='col'>" +
-          "Temperature (Celsium)" +
-          "</td>" +
-          "<td scope='col'>" +
-          "Weather condition" +
-          "</td></tr></thead>";
-        for (let i = 0; i < arr.length; i++) {
-          weather.innerHTML +=
-            "<tbody><tr><td scope='row'>" +
-            arr[i].dt_txt +
-            "</td><td>" +
-            parseInt(arr[i].main.temp - 273) +
-            "°" +
-            "</td><td>" +
-            arr[i].weather[0].description +
-            "</td></tr></tbody>";
-        }
-        console.log(jsonObject.list);
-      }
-
-      function requestAsync(url, callback) {
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = () => {
-          if (request.readyState == 4 && request.status == 200)
-            callback(request.responseText);
-        };
-        request.open("GET", url, true);
-        request.send();
-      }
-    </script>
+    <script src="public/script.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMNlBfE6IEbKuSr35jQQLgVf6IVsN-6pY&libraries=places&callback=initAutocomplete"
+      async
+      defer
+    ></script>
   </body>
 </html>
